@@ -1,0 +1,5 @@
+FROM caddy:2.8.4-alpine
+
+COPY caddy/Caddyfile /etc/caddy/Caddyfile
+COPY ssl /etc/caddy/ssl
+

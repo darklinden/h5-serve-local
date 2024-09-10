@@ -9,7 +9,7 @@ IMAGE_NAME="h5-serve"
 
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 GIT_COMMIT=$(git rev-parse --short HEAD)
-IMAGE_TAG="${GIT_BRANCH}-${GIT_COMMIT}"
+IMAGE_TAG="nginx-${GIT_BRANCH}-${GIT_COMMIT}"
 
 echo "Will build image: $IMAGE_NAME:$IMAGE_TAG"
 
@@ -24,10 +24,10 @@ if [ -n "$IMAGES" ]; then
 fi
 
 # build image
-docker build --progress=plain --no-cache -t $IMAGE_NAME:$IMAGE_TAG -f ./Dockerfile ./
+docker build --progress=plain --no-cache -t $IMAGE_NAME:$IMAGE_TAG -f ./Dockerfile-nginx ./
 
 # upload image
 docker image tag $IMAGE_NAME:$IMAGE_TAG darklinden/$IMAGE_NAME:$IMAGE_TAG
 docker push darklinden/$IMAGE_NAME:$IMAGE_TAG
-docker image tag darklinden/$IMAGE_NAME:$IMAGE_TAG darklinden/$IMAGE_NAME:latest
-docker push darklinden/$IMAGE_NAME:latest
+docker image tag darklinden/$IMAGE_NAME:$IMAGE_TAG darklinden/$IMAGE_NAME:nginx
+docker push darklinden/$IMAGE_NAME:nginx

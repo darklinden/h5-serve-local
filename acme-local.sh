@@ -24,7 +24,7 @@ if [ -z "$CF_Zone_ID" ]; then
     exit 1
 fi
 
-$ACME_DIR="$PROJECT_DIR/acme"
+ACME_DIR="$PROJECT_DIR/acme"
 
 docker run -it \
     -v "$ACME_DIR":/acme.sh \
@@ -36,5 +36,5 @@ docker run -it \
     -e CF_Zone_ID=$CF_Zone_ID \
     neilpang/acme.sh --issue --dns dns_cf -d local.darklinden.site
 
-cp -rf $ACME_DIR/local.darklinden.site_ecc/fullchain.cer $PROJECT_DIR/nginx/ssl/fullchain.cer
-cp -rf $ACME_DIR/local.darklinden.site_ecc/local.darklinden.site.key $PROJECT_DIR/nginx/ssl/local.darklinden.site.key
+cp -rf $ACME_DIR/local.darklinden.site_ecc/fullchain.cer $PROJECT_DIR/ssl/fullchain.cer
+cp -rf $ACME_DIR/local.darklinden.site_ecc/local.darklinden.site.key $PROJECT_DIR/ssl/local.darklinden.site.key

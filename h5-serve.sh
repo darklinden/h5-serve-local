@@ -12,7 +12,7 @@ echo "WORK_DIR: $WORK_DIR"
 # open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome https://local.darklinden.site
 
 docker run -it --rm \
-    -v $WORK_DIR:/usr/share/nginx/html \
+    -v $WORK_DIR:/usr/share/html \
     -p 80:80 \
     -p 443:443 \
     darklinden/h5-serve
