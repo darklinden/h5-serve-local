@@ -18,6 +18,18 @@ local.darklinden.site {
     file_server browse {
         precompressed zstd br gzip
     }
+
+    @wasm path *.wasm *.wasm.gz *.wasm.br *.wasm.zst
+    header @wasm Content-Type application/wasm
+
+    @gz path *.gz
+    header @gz Content-Encoding gzip
+
+    @zst path *.zst
+    header @zst Content-Encoding zstd
+
+    @br path *.br
+    header @br Content-Encoding br
 }
 
 http://local.darklinden.site {
@@ -29,6 +41,18 @@ http://local.darklinden.site {
     file_server browse {
         precompressed zstd br gzip
     }
+
+    @wasm path *.wasm *.wasm.gz *.wasm.br *.wasm.zst
+    header @wasm Content-Type application/wasm
+
+    @gz path *.gz
+    header @gz Content-Encoding gzip
+
+    @zst path *.zst
+    header @zst Content-Encoding zstd
+
+    @br path *.br
+    header @br Content-Encoding br
 }
 
 # Refer to the Caddy docs for more information:
