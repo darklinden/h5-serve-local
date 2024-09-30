@@ -24,10 +24,12 @@ if [ -n "$IMAGES" ]; then
 fi
 
 # build image
-docker build --progress=plain --no-cache -t $IMAGE_NAME:$IMAGE_TAG -f ./Dockerfile-nginx ./
+docker build --progress=plain --no-cache -t $IMAGE_NAME:$IMAGE_TAG -f ./Dockerfile ./
 
 # upload image
 docker image tag $IMAGE_NAME:$IMAGE_TAG darklinden/$IMAGE_NAME:$IMAGE_TAG
 docker push darklinden/$IMAGE_NAME:$IMAGE_TAG
 docker image tag darklinden/$IMAGE_NAME:$IMAGE_TAG darklinden/$IMAGE_NAME:nginx
 docker push darklinden/$IMAGE_NAME:nginx
+docker image tag darklinden/$IMAGE_NAME:$IMAGE_TAG darklinden/$IMAGE_NAME:latest
+docker push darklinden/$IMAGE_NAME:latest

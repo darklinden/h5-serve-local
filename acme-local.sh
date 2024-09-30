@@ -36,5 +36,14 @@ docker run -it \
     -e CF_Zone_ID=$CF_Zone_ID \
     neilpang/acme.sh --issue --dns dns_cf -d local.darklinden.site
 
-cp -rf $ACME_DIR/local.darklinden.site_ecc/fullchain.cer $PROJECT_DIR/ssl/fullchain.cer
+docker run -it \
+    -v "$ACME_DIR":/acme.sh \
+    -e CF_Token=$CF_Token \
+    -e CF_Zone_ID=$CF_Zone_ID \
+    neilpang/acme.sh --issue --dns dns_cf -d local-ws.darklinden.site
+
+cp -rf $ACME_DIR/local.darklinden.site_ecc/fullchain.cer $PROJECT_DIR/ssl/local.darklinden.site.fullchain.cer
 cp -rf $ACME_DIR/local.darklinden.site_ecc/local.darklinden.site.key $PROJECT_DIR/ssl/local.darklinden.site.key
+
+cp -rf $ACME_DIR/local-ws.darklinden.site_ecc/fullchain.cer $PROJECT_DIR/ssl/local-ws.darklinden.site.fullchain.cer
+cp -rf $ACME_DIR/local-ws.darklinden.site_ecc/local-ws.darklinden.site.key $PROJECT_DIR/ssl/local-ws.darklinden.site.key
