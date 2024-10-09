@@ -1,0 +1,15 @@
+services:
+    nginx:
+        image: nginx:alpine
+        container_name: h5-serve
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./ssl:/etc/nginx/ssl
+            - ./test:/usr/share/html
+            - ./nginx/media:/etc/nginx/media
+            - type: bind
+              source: ./nginx/nginx.conf
+              target: /etc/nginx/nginx.conf
