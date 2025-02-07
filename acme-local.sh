@@ -10,7 +10,7 @@ echo "Load environment variables ..."
 if [ -f $PROJECT_DIR/.env ]; then
     echo "Loading environment variables from $PROJECT_DIR/.env ..."
     set -a
-    source $PROJECT_DIR/.env
+    . $PROJECT_DIR/.env
     set +a
 fi
 
@@ -26,18 +26,25 @@ fi
 
 ACME_DIR="$PROJECT_DIR/acme"
 
+MOUNT_DIR=$ACME_DIR
+
+if command -v cygpath &>/dev/null; then
+    MOUNT_DIR=$(cygpath -wa $MOUNT_DIR)
+    echo "Using cygpath to convert path to Windows format: $MOUNT_DIR"
+fi
+
 docker run -it --rm \
-    -v "$ACME_DIR":/acme.sh \
+    -v "$MOUNT_DIR":/acme.sh \
     neilpang/acme.sh --set-default-ca --server letsencrypt
 
 docker run -it --rm \
-    -v "$ACME_DIR":/acme.sh \
+    -v "$MOUNT_DIR":/acme.sh \
     -e CF_Token=$CF_Token \
     -e CF_Zone_ID=$CF_Zone_ID \
     neilpang/acme.sh --issue --dns dns_cf -d local.darklinden.site
 
 docker run -it --rm \
-    -v "$ACME_DIR":/acme.sh \
+    -v "$MOUNT_DIR":/acme.sh \
     -e CF_Token=$CF_Token \
     -e CF_Zone_ID=$CF_Zone_ID \
     neilpang/acme.sh --issue --dns dns_cf -d local-ws.darklinden.site
