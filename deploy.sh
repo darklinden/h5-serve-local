@@ -3,6 +3,11 @@
 BASEDIR=$(dirname "$0")
 PROJECT_DIR="$(realpath "${BASEDIR}")"
 
+mkdir -p "${PROJECT_DIR}/ssl"
+cd "${PROJECT_DIR}/ssl"
+curl -O https://traefik.me/fullchain.pem
+curl -O https://traefik.me/privkey.pem
+
 cd $PROJECT_DIR || exit
 
 IMAGE_NAME="h5-serve"
